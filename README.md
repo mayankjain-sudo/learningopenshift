@@ -1,2 +1,2 @@
-# learningopenshift
+# Learning OpenShift
 Learning Redhat Openshift
