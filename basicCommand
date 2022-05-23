@@ -6,7 +6,7 @@ Cluster details for login
 # cat /usr/local/etc/ocp4.config
 
 To login to cluster
-# oc login -u kubeadmin -p PASSWORDfromaboveCommand https://api.ocp4.example.com:6443
+# oc login -u kubeadmin -p PASSWORDfromaboveCommand clusterURL
 
 To get cluster version
 # oc get clusterversion
