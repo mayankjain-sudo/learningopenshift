@@ -1,0 +1,72 @@
+# oc get nodes
+# oc adm top nodes
+# oc describe node my-node-name
+
+Cluster details for login
+# cat /usr/local/etc/ocp4.config
+
+To login to cluster
+# oc login -u kubeadmin -p PASSWORDfromaboveCommand https://api.ocp4.example.com:6443
+
+To get cluster version
+# oc get clusterversion
+
+To get cluster detailed information
+# oc describe clusterversion
+
+To retrieve the list of all cluster operators:
+# oc get clusteroperators
+
+Displaying the Logs of OpenShift Nodes.TheCRI-O container engine and the Kubelet, which are Systemd units.
+# oc adm node-logs -u crio my-node-name
+# oc adm node-logs -u kubelet my-node-name
+
+Display all journal logs of a node:
+# oc adm node-logs my-node-name
+
+Opening a Shell Prompt on an OpenShift Node
+# oc debug node/my-node-name
+sh-4.4# chroot /host
+sh-4.4# systemctl is-active kubelet
+
+From an oc debug node session, use the crictl command to get low-level information about all local containers running on the node
+# oc debug node/my-node-name
+  sh-4.4# chroot /host
+  sh-4.4# crictl ps
+
+Listing events from the current project 
+#  oc get events
+
+Troubleshooting Running and Terminated Pods
+#  oc logs my-pod-name
+
+If the pod contains multiple containers, then the oc logs command requires the -c option
+# oc logs my-pod-name -c my-container-name
+
+Creating Troubleshooting Pods
+# oc debug deployment/my-deployment-name --as-root
+
+Changing a Running Container
+The following commands help with making changes to running containers. They all assume that pods contain a single container. If not, you must add the -c my-container-name option.
+# oc rsh my-pod-name
+	Opens a shell inside a pod to run shell commands interactively and non-interactively.
+# oc cp /local/path my-pod-name:/container/path
+	Copies local files to a location inside a pod. You can also reverse arguments and copy files
+	from inside a pod to your local file system. See also the oc rsync command for copying
+	multiple files at once
+# oc port-forward my-pod-name local-port:remote-port
+	Creates a TCP tunnel from local-port on your workstation to local-port on the pod.
+	The tunnel is alive as long as you keep the oc port-forward running. This allows you to get
+	network access to the pod without exposing it through a route. Because the tunnel starts at
+	your localhost, it cannot be accessed by other machines.
+
+Troubleshooting OpenShift CLI Commands
+The --loglevel level option displays OpenShift API requests, starting with level 6. As you
+increase the level, up to 10, more information about those requests is added, such as their HTTP
+request headers and response bodies. Level 10 also includes a curl command to replicate each
+request.
+# oc get pod --loglevel 6
+# oc get pod --loglevel 10
+
+Authentication token that the oc command uses to authenticate OpenShift API requests to get your token, use the -t option of the oc whoami command
+# oc whoami -t
